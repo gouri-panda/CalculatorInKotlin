@@ -1,9 +1,7 @@
 package com.one4ll.calculatorinkotlin
 
-import android.icu.text.StringSearch
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -11,7 +9,6 @@ import android.widget.TextView
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
-    private val TAG: String = "MainActivity"
     private lateinit var result: EditText
     private lateinit var newNumber: EditText
     private val displayOperation by lazy { findViewById<TextView>(R.id.operation) }
@@ -54,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             val operation  = button.text.toString()
             try {
                 val value = newNumber.text.toString().toDouble()
-                performOperation(value,operation)
+                value.performOperation(operation)
 
             }catch (e : Exception){
                 newNumber.setText("")
@@ -83,11 +80,11 @@ class MainActivity : AppCompatActivity() {
         buttonEqual.setOnClickListener(operationListener)
 
     }
-    private fun performOperation(value :Double,operation : String){
+    private fun Double.performOperation(operation: String){
         if (operand1 == null){
-            operand1 = value.toDouble()
+            operand1 = this
         }else{
-            operand2 = value.toDouble()
+            operand2 = this
             if (pendingOperation == "="){
                 pendingOperation = operation
             }
@@ -96,21 +93,21 @@ class MainActivity : AppCompatActivity() {
                     operand1 = operand2
                 }
                 "*" ->{
-                    operand1 = operand1!! *value
+                    operand1 = operand1!! * this
 
                 }
                 "/" ->{
-                    if (operand2 == 0.0){
-                        operand1 = Double.NaN
+                    operand1 = if (operand2 == 0.0){
+                        Double.NaN
                     }else{
-                        operand1 = operand1?.div(value)
+                        operand1?.div(this)
                     }
                 }
                 "+" ->{
-                    operand1 = operand1?.plus(value)
+                    operand1 = operand1?.plus(this)
                 }
                 "-" ->{
-                    operand1 = operand1?.minus(value)
+                    operand1 = operand1?.minus(this)
 
                 }
 
@@ -123,4 +120,5 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 }
