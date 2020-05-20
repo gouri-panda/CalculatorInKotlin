@@ -10,9 +10,9 @@ import java.lang.Exception
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var result: EditText
-    private lateinit var newNumber: EditText
-    private val displayOperation by lazy { findViewById<TextView>(R.id.operation) }
+//    private lateinit var result: EditText
+//    private lateinit var newNumber: EditText
+//    private val displayOperation by lazy { findViewById<TextView>(R.id.operation) }
 
 
     private var operand1 :Double? = null
@@ -21,45 +21,45 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        result = findViewById(R.id.result)
-        newNumber = findViewById(R.id.new_number)
-        val button0 : Button = findViewById(R.id.button0)
-        val button1 : Button = findViewById(R.id.button1)
-        val button2 : Button = findViewById(R.id.button2)
-        val button3 : Button = findViewById(R.id.button3)
-        val button4 : Button = findViewById(R.id.button4)
-        val button5 : Button = findViewById(R.id.button5)
-        val button6 : Button = findViewById(R.id.button6)
-        val button7 : Button = findViewById(R.id.button7)
-        val button8 : Button = findViewById(R.id.button8)
-        val button9 : Button = findViewById(R.id.button9)
-        val buttonDot : Button = findViewById(R.id.button_dot)
+//        result = findViewById(R.id.result)
+//        newNumber = findViewById(R.id.new_number)
+//        val button0 : Button = findViewById(R.id.button0)
+//        val button1 : Button = findViewById(R.id.button1)
+//        val button2 : Button = findViewById(R.id.button2)
+//        val button3 : Button = findViewById(R.id.button3)
+//        val button4 : Button = findViewById(R.id.button4)
+//        val button5 : Button = findViewById(R.id.button5)
+//        val button6 : Button = findViewById(R.id.button6)
+//        val button7 : Button = findViewById(R.id.button7)
+//        val button8 : Button = findViewById(R.id.button8)
+//        val button9 : Button = findViewById(R.id.button9)
+//        val buttonDot : Button = findViewById(R.id.button_dot)
 
 
-        val buttonMultiply : Button = findViewById(R.id.button_multiply)
-        val buttonPlus : Button = findViewById(R.id.button_plus)
-        val buttonMinus : Button = findViewById(R.id.button_minus)
-        val buttonDivide : Button = findViewById(R.id.button_divide)
-        val buttonEqual : Button = findViewById(R.id.button_equals)
+//        val buttonMultiply : Button = findViewById(R.id.button_multiply)
+//        val buttonPlus : Button = findViewById(R.id.button_plus)
+//        val buttonMinus : Button = findViewById(R.id.button_minus)
+//        val buttonDivide : Button = findViewById(R.id.button_divide)
+//        val buttonEqual : Button = findViewById(R.id.button_equals)
 
         val digitListener  = View.OnClickListener {
             val button = it as Button
-            newNumber.append(button.text)
+            new_number.append(button.text)
 
         }
         val operationListener = View.OnClickListener {
             val button = it as Button
-            val operation  = button.text.toString()
+            val op  = button.text.toString()
             try {
-                val value = newNumber.text.toString().toDouble()
-                value.performOperation(operation)
+                val value = new_number.text.toString().toDouble()
+                value.performOperation(op)
 
             }catch (e : Exception){
-                newNumber.setText("")
+                new_number.setText("")
 
             }
-            pendingOperation = operation
-            displayOperation.text = pendingOperation
+            pendingOperation = op
+            operation.text = pendingOperation
         }
         button0.setOnClickListener(digitListener)
         button1.setOnClickListener(digitListener)
@@ -71,14 +71,14 @@ class MainActivity : AppCompatActivity() {
         button7.setOnClickListener(digitListener)
         button8.setOnClickListener(digitListener)
         button9.setOnClickListener(digitListener)
-        buttonDot.setOnClickListener(digitListener)
+        button_dot.setOnClickListener(digitListener)
 
         // operation
-        buttonMultiply.setOnClickListener(operationListener)
-        buttonDivide.setOnClickListener(operationListener)
-        buttonMinus.setOnClickListener(operationListener)
-        buttonPlus.setOnClickListener(operationListener)
-        buttonEqual.setOnClickListener(operationListener)
+        button_multiply.setOnClickListener(operationListener)
+        button_divide.setOnClickListener(operationListener)
+        button_minus.setOnClickListener(operationListener)
+        button_plus.setOnClickListener(operationListener)
+        button_equals.setOnClickListener(operationListener)
 
     }
     private fun Double.performOperation(operation: String){
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
 
 
         }
-        newNumber.setText("")
+        new_number.setText("")
         result.setText(operand1.toString())
 
 
